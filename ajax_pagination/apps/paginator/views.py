@@ -53,7 +53,7 @@ def find(request):
     if search:
       leads = Lead.objects.filter(first_name__startswith=request.POST['starts_with'])[start:per_page]
       count = Lead.objects.filter(first_name__startswith=request.POST['starts_with']).count()
-    else:
+    else: 
       leads = Lead.objects.all()[start:current_page * per_page]
       count = Lead.objects.all().count()
     

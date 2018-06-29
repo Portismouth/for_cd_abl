@@ -25,6 +25,13 @@
           </div>
         </div>
       </form>
+      <form action="/search" method="post" id="search_form">
+        <div class="form-row align-items-center">
+          <div class="col-auto">
+            <input type="text" class="form-control mb-2" name="search" placeholder="Search Records">
+          </div>
+        </div>
+      </form>
     </div>
     <div id="data">
       <div class="row">
@@ -88,6 +95,17 @@
       });
       $(this).trigger('reset')
     });
+    $('#search_form').keyup(function () {
+      console.log($(this).serialize());
+      $.ajax({
+        url: '/search',
+        method: 'post',
+        data: ($(this).serialize()),
+        success: function (response) {
+          $('#data').html(response);
+        }
+      })
+    })
     $('body').on('submit', '.pagination-container form', function (e) {
       e.preventDefault();
       console.log($(this).serialize());
@@ -96,7 +114,9 @@
         method: 'post',
         data: $(this).serialize(),
         success: function (response) {
-          $('#data').html(response);
+          console.log(response);
+          $("#data").html(response)
+          // $('#data').html(response);
         }
       })
     })

@@ -90,7 +90,7 @@
         $.ajax({
           url: '/find',
           method: 'post',
-          data: $(this).parent().serialize(),
+          data: ($(this).parent().serialize()),
           success: function(response) {
             $('#leadsContainer').html(response);
           }
