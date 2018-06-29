@@ -1,0 +1,59 @@
+@model TheWall.Models.MessagingViewModel
+<nav class="navbar navbar-inverse navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">The Wall</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li style="color:white" class="navbar-text">@TempData["WelcomeMessage"]</li>
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="container">
+        <div class="row message">
+            <form asp-action="Message" asp-controller="Home" method="POST">
+                <input type="hidden" value="@ViewBag.LoggedIn.Id" name="UserId">
+                <span class="field-validation-error">@TempData["MessageError"]</span>
+                <textarea asp-for="MessageText" name="MessageText" class="form-control" style="width: 60%;"></textarea>
+                <br>
+                <input type="submit" class="btn btn-primary">
+            </form>
+        </div>
+        <div class="row ideas mt-2">
+            <span class="field-validation-error">@TempData["LikeError"]</span>
+            @foreach(var message in @ViewBag.Messages)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        @message.User.UserName says:
+                    </div>
+                    <div class="panel-body">
+                        @message.MessageText
+                        <br>
+                        @if(@message.UserId == ViewBag.LoggedIn.Id)
+                        {
+                            <a class="btn btn-danger" href="/delete/@message.MessageId">Delete Message</a>
+                        }
+                    </div>
+                    <div class="panel-footer">
+                        <form asp-action="Comment" asp-controller="Home" method="POST">
+                            <input type="hidden" value="@ViewBag.LoggedIn.Id" name="UserId">
+                            <input type="hidden" value="@message.MessageId" name="MessageId">
+                            <input type="hidden" value="@message.MessageText" name="MessageText">
+                            <span class="field-validation-error">@TempData["CommentError"]</span>
+                            <textarea asp-for="CommentText" name="CommentText" class="form-control" style="width: 60%;"></textarea>
+                            <br>
+                            <input type="submit" class="btn btn-primary">
+                        </form>
+                        @foreach(var comment in @message.Comments)
+                        {
+                            <p>@comment.User.FirstName says: @comment.CommentText</p>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+C:\Users\Ozzy\Desktop\TheWall\bin\Debug\netcoreapp2.0\TheWall.deps.json
+C:\Users\Ozzy\Desktop\TheWall\bin\Debug\netcoreapp2.0\TheWall.runtimeconfig.json
+C:\Users\Ozzy\Desktop\TheWall\bin\Debug\netcoreapp2.0\TheWall.runtimeconfig.dev.json
+C:\Users\Ozzy\Desktop\TheWall\bin\Debug\netcoreapp2.0\TheWall.dll
+C:\Users\Ozzy\Desktop\TheWall\bin\Debug\netcoreapp2.0\TheWall.pdb
+C:\Users\Ozzy\Desktop\TheWall\obj\Debug\netcoreapp2.0\TheWall.csprojAssemblyReference.cache
+C:\Users\Ozzy\Desktop\TheWall\obj\Debug\netcoreapp2.0\TheWall.csproj.CoreCompileInputs.cache
+C:\Users\Ozzy\Desktop\TheWall\obj\Debug\netcoreapp2.0\TheWall.AssemblyInfoInputs.cache
+C:\Users\Ozzy\Desktop\TheWall\obj\Debug\netcoreapp2.0\TheWall.AssemblyInfo.cs
+C:\Users\Ozzy\Desktop\TheWall\obj\Debug\netcoreapp2.0\TheWall.dll
+C:\Users\Ozzy\Desktop\TheWall\obj\Debug\netcoreapp2.0\TheWall.pdb

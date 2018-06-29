@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Paginator</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+    crossorigin="anonymous"> {% load static %}
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Django/AJAX Paginator</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav ml-auto">
+        <form action="/find" method="POST" class="form-inline my-2 my-lg-0">
+          {% csrf_token %}
+          <input id="search" name="starts_with" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+        </form>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row justify-content-center">
+      <h1>{{greeting}}</h1>
+    </div>
+    <div class="row justify-content-center">
+      <form action="/process" method="post" id="message_form">
+        {% csrf_token %}
+        <div class="form-row align-items-center">
+          <div class="col-auto">
+            <input type="text" class="form-control mb-2" name="first_name" placeholder="First Name">
+          </div>
+          <div class="col-auto">
+            <input type="text" class="form-control mb-2" name="last_name" placeholder="Last Name">
+          </div>
+          <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="row leads">
+      <div class="col">
+        <div class="row">
+          <div class="col-1">Id</div>
+          <div class="col-4">First Name</div>
+          <div class="col-4">Last Name</div>
+          <div class="col-3">Registered</div>
+        </div>
+        <div id="leadsContainer"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('#message_form').on('submit', function (e) {
+        e.preventDefault();
+        $.ajax({
+          url: $(this).attr('action'),
+          method: 'post',
+          data: $(this).serialize(),
+          success: function (response) {
+            console.log(response);
+            let value = response[response.length - 1];
+            $('.leads .col').append(
+              '<div class="row">' +
+                '<div class="col-1">' + value['pk'] + '</div>' +
+                '<div class="col-4">' + value['fields']['first_name'] + '</div>' +
+                '<div class="col-4">' + value['fields']['last_name'] + '</div>' +
+                '<div class="col-3">' + value['fields']['registered'] + '</div>' +
+              '</div>'
+            );
+          }
+        });
+        $(this).trigger('reset')
+      });
+      $('#search').keyup(function() {
+        console.log($(this).parent().serialize());
+        $.ajax({
+          url: '/find',
+          method: 'post',
+          data: $(this).parent().serialize(),
+          success: function(response) {
+            $('#leadsContainer').html(response);
+          }
+        })
+      })
+      $('body').on('submit', '.pagination-container form', function(e) {
+        e.preventDefault();
+        console.log($(this).serialize());
+        $.ajax({
+          url: '/find',
+          method: 'post',
+          data: $(this).serialize(),
+          success: function (response) {
+            $('#leadsContainer').html(response);
+          }
+        })
+      })
+    });
+  </script>
+</body>
+
+</html>

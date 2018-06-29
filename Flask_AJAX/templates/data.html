@@ -1,0 +1,31 @@
+<div class="col">
+  <div class="row">
+    <div class="col">
+      <h2>
+        Data
+      </h2>
+    </div>
+  </div>
+</div>
+<div id="data-container">
+  {% for data in data: %}
+  <div class="row">
+    <div class="col">
+      <h4>
+        {{data.data}}
+      </h4>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% if pages > 1 %}
+<div class="pagination-container row justify-content-center">
+  {% for x in pages %}
+  <form action="/find" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="page_num" value={{x}}>
+    <input type="submit" value={{x}}>
+  </form>
+  {% endfor %}
+</div>
+{% endif %}
