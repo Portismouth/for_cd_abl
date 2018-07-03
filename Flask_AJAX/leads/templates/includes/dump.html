@@ -1,0 +1,26 @@
+<!-- <div class="pagination-container row justify-content-center">
+  {% if all_results_pages > 1%}
+    {% for x in all_results_pages %}
+      {% if current_page != x %}
+        <form action="/find" method="POST">
+          <input type="hidden" name="page_num" value={{x}}>
+          <input class="btn btn-primary" type="submit" value={{x}}>
+        </form>
+      {% else %}
+        <button class="btn btn-primary" disabled="disabled">{{x}}</button>
+      {% endif %}
+    {% endfor %}
+  {% elif search_results_pages > 1 %}
+    {% for x in search_results_pages %}
+      {% if current_page != x %}  
+      <form action="/find-search" method="POST">
+        <input type="hidden" name="search_term" value="{{search_term}}">
+        <input type="hidden" name="page_num" value={{x}}>
+        <input class="btn btn-primary" type="submit" value={{x}}>
+      </form>
+      {% else %}
+        <button class="btn btn-primary" disabled="disabled">{{x}}</button>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+</div> -->
